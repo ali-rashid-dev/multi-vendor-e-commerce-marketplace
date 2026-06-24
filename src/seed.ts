@@ -1,6 +1,6 @@
 import { getPayload } from "payload";
 import config from "@payload-config";
-import { stripe } from "./lib/stripe";
+import { getStripe } from "./lib/stripe";
 const categories = [
     {
         name: "All",
@@ -142,6 +142,7 @@ const seed = async () => {
     const payload = await getPayload({
         config: config,
     });
+    const stripe = getStripe();
     const adminAccount = await stripe.accounts.create({});
     if (!adminAccount.id) {
         throw new Error("Failed to create Stripe account for admin tenant");

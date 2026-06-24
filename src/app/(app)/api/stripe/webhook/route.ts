@@ -1,6 +1,6 @@
 import type { Stripe } from "stripe";
 import { NextResponse } from "next/server";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 import { getPayload } from "payload";
 import config from "@payload-config";
 
@@ -8,6 +8,7 @@ export async function POST(req: Request) {
   let event: Stripe.Event;
 
   try {
+    const stripe = getStripe();
     event = stripe.webhooks.constructEvent(
       await (await req.blob()).text(),
       req.headers.get("Stripe-Signature") as string,
@@ -53,15 +54,16 @@ export async function POST(req: Request) {
           }
 
           // ✅ Expand both line_items and product
+          const stripe = getStripe();
           const expandedSession = await stripe.checkout.sessions.retrieve(
-            data.id, 
+            data.id,
             {
-            expand: ["line_items", "line_items.data.price.product"],
-          },
-          {
-            stripeAccount: event.account,
-          }
-        );
+              expand: ["line_items", "line_items.data.price.product"],
+            },
+            {
+              stripeAccount: event.account,
+            }
+          );
 
           if (
             !expandedSession.line_items?.data ||

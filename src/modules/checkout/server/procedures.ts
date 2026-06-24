@@ -2,9 +2,9 @@ import { Media, Tenant } from "@/payload-types";
 import { baseProcedure, createTRPCRouter, protectedProcedure } from "@/trpc/init";
 import z from "zod";
 import { TRPCError } from "@trpc/server";
+import type Stripe from "stripe";
 import { CheckoutMetaData, ProductMetaData } from "../types.";
-import Stripe from "stripe";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 
 
 
@@ -33,6 +33,7 @@ export const checkoutRouter = createTRPCRouter({
                     message: "Tenant not found"
                 })
             }
+            const stripe = getStripe();
             const accountLinks = await stripe.accountLinks.create({
                 account: tenant.stripeAccountId,
                 refresh_url: `${process.env.NEXT_PUBLIC_API_URL}/admin`,
@@ -122,6 +123,7 @@ export const checkoutRouter = createTRPCRouter({
                     unit_amount: product.price * 100,
                 },
             }));
+            const stripe = getStripe();
             const checkout = await stripe.checkout.sessions.create({
                 customer_email: ctx.session.user.email,
                 success_url: `${process.env.NEXT_PUBLIC_API_URL}/tenants/${input.tenantSlug}/checkout?success=true`,

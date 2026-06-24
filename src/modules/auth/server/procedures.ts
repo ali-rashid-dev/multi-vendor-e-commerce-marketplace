@@ -5,7 +5,7 @@ import { headers as getHeaders } from 'next/headers';
 
 import { loginSchema, registerSchema } from "../schema";
 import { generateAuthCookie } from "../utils";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 
 
 export const authRouter = createTRPCRouter({
@@ -34,6 +34,7 @@ export const authRouter = createTRPCRouter({
                     message: "User already exists"
                 })
             }
+            const stripe = getStripe();
             const account = await stripe.accounts.create({})
             if (!account.id) {
                 throw new TRPCError({
