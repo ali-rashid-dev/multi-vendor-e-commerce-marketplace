@@ -57,7 +57,7 @@ export const Navbar = () => {
     const session = useQuery(trpc.auth.session.queryOptions());
 
     return (
-        <nav className="h-16 flex border-b border-foreground bg-background justify-between items-center font-medium text-foreground">
+        <nav className="h-16 flex border-b-2 border-border bg-background justify-between items-center font-medium text-foreground">
             {/* Reduced text size and padding */}
             <Link href="/" className="flex items-center pl-4">
                 <span className={cn("text-3xl font-semibold", poppins.className)}>LOGO</span>
@@ -84,7 +84,7 @@ export const Navbar = () => {
                     {/* Reduced padding */}
                     <Button
                         asChild
-                        className="border-l border-foreground border-t-0 border-b-0 border-r-0 px-8 h-full rounded-none bg-foreground text-background hover:bg-primary hover:text-accent-foreground transition-colors"
+                        className="border-l-2 border-border border-t-0 border-b-0 border-r-0 px-8 h-full rounded-none bg-foreground text-background hover:bg-primary hover:text-accent-foreground transition-colors"
                     >
                         <Link href="/admin">Dashboard</Link>
                     </Button>
@@ -94,14 +94,14 @@ export const Navbar = () => {
                     <Button
                         asChild
                         variant="secondary"
-                        className="border-l border-t-0 border-b-0 border-r-0 px-8 h-full rounded-none bg-background text-foreground hover:bg-primary hover:text-accent-foreground transition-colors"
+                        className="border-l-2 border-border border-t-0 border-b-0 border-r-0 px-8 h-full rounded-none bg-background text-foreground hover:bg-primary hover:text-accent-foreground transition-colors"
                     >
                         <Link prefetch href="/sign-in">Log In</Link>
                     </Button>
 
                     <Button
                         asChild
-                        className="border-l border-foreground border-t-0 border-b-0 border-r-0 px-8 h-full rounded-none bg-foreground text-background hover:bg-primary hover:text-accent-foreground transition-colors"
+                        className="border-l-2 border-border border-t-0 border-b-0 border-r-0 px-8 h-full rounded-none bg-foreground text-background hover:bg-primary hover:text-accent-foreground transition-colors"
                     >
                         <Link prefetch href="/sign-up">Start Selling</Link>
                     </Button>
