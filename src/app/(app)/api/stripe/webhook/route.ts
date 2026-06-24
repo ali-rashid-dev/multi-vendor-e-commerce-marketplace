@@ -1,8 +1,8 @@
-import type { Stripe } from "stripe";
-import { NextResponse } from "next/server";
 import { getStripe } from "@/lib/stripe";
-import { getPayload } from "payload";
 import config from "@payload-config";
+import { NextResponse } from "next/server";
+import { getPayload } from "payload";
+import type { Stripe } from "stripe";
 
 export async function POST(req: Request) {
   let event: Stripe.Event;
@@ -107,9 +107,9 @@ export async function POST(req: Request) {
               },
             },
             data: {
-              stripeDetailsSubmitted: data.details_submitted ,
+              stripeDetailsSubmitted: data.details_submitted,
             },
-            
+
           });
           break;
         }
