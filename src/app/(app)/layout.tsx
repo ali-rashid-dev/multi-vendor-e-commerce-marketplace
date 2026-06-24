@@ -1,11 +1,13 @@
+export const dynamic = 'force-dynamic';
+
+import RenderMounted from "@/components/RenderMounted";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
+import { TRPCReactProvider } from "@/trpc/client";
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider"
-import RenderMounted from "@/components/RenderMounted";
-import { TRPCReactProvider } from "@/trpc/client";
-import { Toaster } from "@/components/ui/sonner";
-import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
 
 const dmSans = DM_Sans({

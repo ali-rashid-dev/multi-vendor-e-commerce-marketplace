@@ -5,7 +5,6 @@ import { categoriesGetManyOutput } from "@/modules/categories/types";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { SubcategoryMenu } from "./subcategory-menu";
-import { is } from "zod/v4/locales";
 
 interface Props {
     category: categoriesGetManyOutput[1];

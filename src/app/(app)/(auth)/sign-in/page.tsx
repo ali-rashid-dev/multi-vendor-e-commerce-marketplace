@@ -1,17 +1,24 @@
 
-import { SignInView } from '@/modules/auth/view/sign-in-view'
-import { caller } from '@/trpc/server'
-import { redirect } from 'next/navigation';
+"use client";
 
+import { SignInView } from '@/modules/auth/view/sign-in-view';
+import { useTRPC } from '@/trpc/client';
+import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
-const SignUp = async () => {
-  const session = await caller.auth.session();
-  if (session.user) {
-    redirect('/');
-  }
-  return (
-    <SignInView />
-  )
-}
+const SignInPage = () => {
+  const trpc = useTRPC();
+  const router = useRouter();
+  const sessionQuery = useQuery(trpc.auth.session.queryOptions());
 
-export default SignUp
+  useEffect(() => {
+    if (sessionQuery.isSuccess && sessionQuery.data?.user) {
+      router.push('/');
+    }
+  }, [sessionQuery.isSuccess, sessionQuery.data, router]);
+
+  return <SignInView />;
+};
+
+export default SignInPage;

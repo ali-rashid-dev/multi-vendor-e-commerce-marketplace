@@ -7,11 +7,11 @@ import { useEffect } from "react";
 
 const Page = () => {
   const trpc = useTRPC();
-  const {mutate: verify} = useMutation(trpc.checkout.verify.mutationOptions({
+  const { mutate: verify } = useMutation(trpc.checkout.verify.mutationOptions({
     onSuccess(data) {
       window.location.href = data.url;
     },
-    onError(error) {
+    onError() {
       window.location.href = '/';
     }
   }));
